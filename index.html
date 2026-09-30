@@ -515,12 +515,7 @@
           <a>parsed</a> <a>payment method manifest</a> for the
           <var>methodName</var>.
           </li>
-          <li>If <var>methodName</var> is a <a>URL-based payment method
-          identifier</a> with the <code>"*"</code> string <a>supported
-          origins</a> in <var>paymentMethodManifest</var>, return
-          <code>true</code>.
-          </li>
-          <li>Otherwise, if the <a>URL-based payment method identifier</a>
+          <li>If the <a>URL-based payment method identifier</a>
           <var>methodName</var> has the same <a>origin</a> as
           <var>paymentHandlerOrigin</var>, fire the <a>CanMakePaymentEvent</a>
           in the web-based payment handler and return the result.
