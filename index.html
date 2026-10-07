@@ -1740,9 +1740,11 @@ document.getElementById("form").addEventListener("submit", e =&gt; {
         </p>
         <ol class="algorithm">
           <li>
-            If |reason| is an {{"OperationError"}} {{DOMException}}, then run
-	    the <a>Payment handler indicates an internal error algorithm</a> as
-            defined in [[!payment-request]].
+            If |reason| is a <a>PaymentHandlerAppError</a> or an
+            {{"OperationError"}} {{DOMException}}, then run the <a>Payment
+            handler indicates an internal error algorithm</a> as defined in
+            [[!payment-request]], passing |reason| if it is a
+            <a>PaymentHandlerAppError</a>.
           </li>
           <li>
             Otherwise, run the <a>user aborts the payment request algorithm</a>
@@ -1757,8 +1759,9 @@ document.getElementById("form").addEventListener("submit", e =&gt; {
               To maintain as much backwards compatibility as possible, while
               still introducing a way for web-based payment handlers to indicate
               internal error, this specification now maps all reason values other
-              than a {{"OperationError"}} {{DOMException}} to user abort. Future
-              versions of this specification may add additional handled values.
+              than a <a>PaymentHandlerAppError</a> or an {{"OperationError"}}
+              {{DOMException}} to user abort. Future versions of this
+              specification may add additional handled values.
             </p>
           </li>
         </ol>
@@ -1874,6 +1877,16 @@ document.getElementById("form").addEventListener("submit", e =&gt; {
           <li>User agents should help users understand that they are sharing
           information cross-origin, and ideally what information they are
           sharing.
+          </li>
+          <li>Because a web-based payment handler can reject the promise passed
+          to {{PaymentRequestEvent/respondWith()}} with a
+          <a>PaymentHandlerAppError</a> before or without opening a window for
+          user interaction, web-based payment handlers MUST NOT include
+          personally identifiable information (PII), account status, or
+          cross-site tracking identifiers in a <a>PaymentHandlerAppError</a>
+          without user consent (see <a data-cite=
+          "payment-request#user-info">Exposing user information</a> in
+          [[!payment-request]]).
           </li>
         </ul>
       </section>
@@ -2031,6 +2044,8 @@ document.getElementById("form").addEventListener("submit", e =&gt; {
           "payment-request#dom-paymentmethodchangeevent">PaymentMethodChangeEvent</dfn>,
           <dfn data-cite=
           "payment-request#dom-paymentrequestupdateevent">PaymentRequestUpdateEvent</dfn>,
+          <dfn data-cite=
+          "payment-request#dom-paymenthandlerapperror">PaymentHandlerAppError</dfn>,
           <dfn data-cite="payment-request#id-attribute">ID</dfn>,
           <dfn data-cite=
           "payment-request#canmakepayment-method">canMakePayment()</dfn>,
