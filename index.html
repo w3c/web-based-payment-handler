@@ -1303,6 +1303,7 @@ navigator.serviceWorker.addEventListener("message", e =&gt; {
 });
 
 document.getElementById("form").addEventListener("submit", e =&gt; {
+  e.preventDefault();
   const details = {};
   ["cardholderName", "cardNumber", "expiryMonth", "expiryYear", "cardSecurityCode"]
   .forEach(field =&gt; {
